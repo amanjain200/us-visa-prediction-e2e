@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Visa Approval Predictor | ML-Powered US Visa Decision Analysis</title>
+    <meta name="description"
+        content="Advanced machine learning powered US Visa approval prediction system. Get instant predictions using AI analysis of your application data.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css')}}">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div id="particles"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <span class="logo-text">VisaPredict<span class="logo-ai">AI</span></span>
+            </div>
+            <nav class="nav-links">
+                <a href="/" class="nav-link active">Predictor</a>
+                <a href="/train" class="nav-link">Train Model</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                ML-Powered Prediction Engine
+            </div>
+            <h1 class="hero-title">
+                US Visa Approval
+                <span class="gradient-text">Prediction System</span>
+            </h1>
+            <p class="hero-subtitle">
+                Leverage advanced machine learning algorithms to predict visa approval outcomes.
+                Our AI model analyzes multiple factors to provide accurate predictions.
+            </p>
+        </section>
+
+        <!-- Prediction Form Card -->
+        <section class="form-section">
+            <div class="glass-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <polyline points="10,9 9,9 8,9" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="card-title-group">
+                        <h2 class="card-title">Application Details</h2>
+                        <p class="card-subtitle">Enter the visa application information for AI analysis</p>
+                    </div>
+                </div>
+
+                <form action="/" method="post" class="prediction-form" id="visaForm">
+                    <div class="form-grid">
+                        <!-- Applicant Information -->
+                        <div class="form-section-title">
+                            <span class="section-icon">👤</span>
+                            Applicant Information
+                        </div>
+
+                        <div class="form-group">
+                            <label for="continent" class="form-label">
+                                <span class="label-icon">🌍</span>
+                                Continent of Origin
+                            </label>
+                            <div class="select-wrapper">
+                                <select class="form-control" id="continent" name="continent" required>
+                                    <option value="" disabled {% if not form_data or not form_data.continent
+                                        %}selected{% endif %}>Select your continent</option>
+                                    <option value="Asia" {% if form_data and form_data.continent=='Asia' %}selected{%
+                                        endif %}>Asia</option>
+                                    <option value="Africa" {% if form_data and form_data.continent=='Africa'
+                                        %}selected{% endif %}>Africa</option>
+                                    <option value="North America" {% if form_data and
+                                        form_data.continent=='North America' %}selected{% endif %}>North America
+                                    </option>
+                                    <option value="Europe" {% if form_data and form_data.continent=='Europe'
+                                        %}selected{% endif %}>Europe</option>
+                                    <option value="South America" {% if form_data and
+                                        form_data.continent=='South America' %}selected{% endif %}>South America
+                                    </option>
+                                    <option value="Oceania" {% if form_data and form_data.continent=='Oceania'
+                                        %}selected{% endif %}>Oceania</option>
+                                </select>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="education_of_employee" class="form-label">
+                                <span class="label-icon">🎓</span>
+                                Education Level
+                            </label>
+                            <div class="select-wrapper">
+                                <select class="form-control" id="education_of_employee" name="education_of_employee"
+                                    required>
+                                    <option value="" disabled {% if not form_data or not form_data.education_of_employee
+                                        %}selected{% endif %}>Select education level</option>
+                                    <option value="High School" {% if form_data and
+                                        form_data.education_of_employee=='High School' %}selected{% endif %}>High School
+                                    </option>
+                                    <option value="Bachelor's" {% if form_data and
+                                        form_data.education_of_employee=="Bachelor's" %}selected{% endif %}>Bachelor's
+                                        Degree</option>
+                                    <option value="Master's" {% if form_data and
+                                        form_data.education_of_employee=="Master's" %}selected{% endif %}>Master's
+                                        Degree</option>
+                                    <option value="Doctorate" {% if form_data and
+                                        form_data.education_of_employee=='Doctorate' %}selected{% endif %}>Doctorate
+                                        (PhD)</option>
+                                </select>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="has_job_experience" class="form-label">
+                                <span class="label-icon">💼</span>
+                                Prior Job Experience
+                            </label>
+                            <div class="select-wrapper">
+                                <select class="form-control" id="has_job_experience" name="has_job_experience" required>
+                                    <option value="" disabled {% if not form_data or not form_data.has_job_experience
+                                        %}selected{% endif %}>Has job experience?</option>
+                                    <option value="Y" {% if form_data and form_data.has_job_experience=='Y' %}selected{%
+                                        endif %}>Yes - Has Experience</option>
+                                    <option value="N" {% if form_data and form_data.has_job_experience=='N' %}selected{%
+                                        endif %}>No - No Experience</option>
+                                </select>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="requires_job_training" class="form-label">
+                                <span class="label-icon">📚</span>
+                                Requires Job Training
+                            </label>
+                            <div class="select-wrapper">
+                                <select class="form-control" id="requires_job_training" name="requires_job_training"
+                                    required>
+                                    <option value="" disabled {% if not form_data or not form_data.requires_job_training
+                                        %}selected{% endif %}>Training required?</option>
+                                    <option value="Y" {% if form_data and form_data.requires_job_training=='Y'
+                                        %}selected{% endif %}>Yes - Training Required</option>
+                                    <option value="N" {% if form_data and form_data.requires_job_training=='N'
+                                        %}selected{% endif %}>No - No Training Needed</option>
+                                </select>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                        </div>
+
+                        <!-- Company Information -->
+                        <div class="form-section-title">
+                            <span class="section-icon">🏢</span>
+                            Company Information
+                        </div>
+
+                        <div class="form-group">
+                            <label for="no_of_employees" class="form-label">
+                                <span class="label-icon">👥</span>
+                                Number of Employees
+                            </label>
+                            <input type="number" class="form-control" id="no_of_employees" name="no_of_employees"
+                                min="14500" max="40000" placeholder="Enter employee count (14,500 - 40,000)" required
+                                value="{{ form_data.no_of_employees if form_data and form_data.no_of_employees else '' }}">
+                            <span class="input-hint">Company size: 14,500 to 40,000 employees</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company_age" class="form-label">
+                                <span class="label-icon">📅</span>
+                                Company Age (Years)
+                            </label>
+                            <input type="number" class="form-control" id="company_age" name="company_age" min="15"
+                                max="180" placeholder="Enter company age (15 - 180 years)" required
+                                value="{{ form_data.company_age if form_data and form_data.company_age else '' }}">
+                            <span class="input-hint">Company established: 15 to 180 years ago</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="region_of_employment" class="form-label">
+                                <span class="label-icon">📍</span>
+                                Region of Employment
+                            </label>
+                            <div class="select-wrapper">
+                                <select class="form-control" id="region_of_employment" name="region_of_employment"
+                                    required>
+                                    <option value="" disabled {% if not form_data or not form_data.region_of_employment
+                                        %}selected{% endif %}>Select US region</option>
+                                    <option value="West" {% if form_data and form_data.region_of_employment=='West'
+                                        %}selected{% endif %}>West</option>
+                                    <option value="Northeast" {% if form_data and
+                                        form_data.region_of_employment=='Northeast' %}selected{% endif %}>Northeast
+                                    </option>
+                                    <option value="South" {% if form_data and form_data.region_of_employment=='South'
+                                        %}selected{% endif %}>South</option>
+                                    <option value="Midwest" {% if form_data and
+                                        form_data.region_of_employment=='Midwest' %}selected{% endif %}>Midwest</option>
+                                    <option value="Island" {% if form_data and form_data.region_of_employment=='Island'
+                                        %}selected{% endif %}>Island</option>
+                                </select>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                        </div>
+
+                        <!-- Compensation Details -->
+                        <div class="form-section-title">
+                            <span class="section-icon">💰</span>
+                            Compensation Details
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prevailing_wage" class="form-label">
+                                <span class="label-icon">💵</span>
+                                Prevailing Wage ($)
+                            </label>
+                            <input type="number" class="form-control" id="prevailing_wage" name="prevailing_wage"
+                                min="600" max="70000" placeholder="Enter wage amount ($600 - $70,000)" required
+                                value="{{ form_data.prevailing_wage if form_data and form_data.prevailing_wage else '' }}">
+                            <span class="input-hint">Standard wage: $600 to $70,000</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="unit_of_wage" class="form-label">
+                                <span class="label-icon">⏱️</span>
+                                Wage Unit / Contract Tenure
+                            </label>
+                            <div class="select-wrapper">
+                                <select class="form-control" id="unit_of_wage" name="unit_of_wage" required>
+                                    <option value="" disabled {% if not form_data or not form_data.unit_of_wage
+                                        %}selected{% endif %}>Select wage period</option>
+                                    <option value="Hour" {% if form_data and form_data.unit_of_wage=='Hour' %}selected{%
+                                        endif %}>Per Hour</option>
+                                    <option value="Week" {% if form_data and form_data.unit_of_wage=='Week' %}selected{%
+                                        endif %}>Per Week</option>
+                                    <option value="Month" {% if form_data and form_data.unit_of_wage=='Month'
+                                        %}selected{% endif %}>Per Month</option>
+                                    <option value="Year" {% if form_data and form_data.unit_of_wage=='Year' %}selected{%
+                                        endif %}>Per Year</option>
+                                </select>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="full_time_position" class="form-label">
+                                <span class="label-icon">⏰</span>
+                                Employment Type
+                            </label>
+                            <div class="select-wrapper">
+                                <select class="form-control" id="full_time_position" name="full_time_position" required>
+                                    <option value="" disabled {% if not form_data or not form_data.full_time_position
+                                        %}selected{% endif %}>Select position type</option>
+                                    <option value="Y" {% if form_data and form_data.full_time_position=='Y' %}selected{%
+                                        endif %}>Full-Time Position</option>
+                                    <option value="N" {% if form_data and form_data.full_time_position=='N' %}selected{%
+                                        endif %}>Part-Time Position</option>
+                                </select>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="btn-content">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69279 2.71537 9.79619 2.24013C11.8996 1.7649 14.1003 1.98232 16.07 2.85999"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M22 4L12 14.01L9 11.01" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Analyze & Predict Visa Status
+                        </span>
+                        <span class="btn-loading">
+                            <div class="spinner"></div>
+                            Processing...
+                        </span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Result Section -->
+        {% if context and context != "Rendering" %}
+        <section class="result-section">
+            <div
+                class="result-card {% if context == 'Visa-approved' %}result-approved{% else %}result-denied{% endif %}">
+                <div class="result-icon">
+                    {% if context == 'Visa-approved' %}
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69279 2.71537 9.79619 2.24013C11.8996 1.7649 14.1003 1.98232 16.07 2.85999"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M22 4L12 14.01L9 11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    {% else %}
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                        <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                        <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                    {% endif %}
+                </div>
+                <div class="result-content">
+                    <h3 class="result-title">Prediction Result</h3>
+                    <p class="result-status">
+                        {% if context == 'Visa-approved' %}
+                        ✅ Visa Approved
+                        {% else %}
+                        ❌ Visa Not Approved
+                        {% endif %}
+                    </p>
+                    <p class="result-description">
+                        {% if context == 'Visa-approved' %}
+                        Based on the provided data, our AI model predicts a <strong>positive outcome</strong> for this
+                        visa application.
+                        {% else %}
+                        Based on the provided data, our AI model suggests this application may face
+                        <strong>challenges</strong>. Consider reviewing the application details.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">Machine Learning</h3>
+                    <p class="feature-desc">Advanced ML algorithms trained on historical visa data</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Instant Results</h3>
+                    <p class="feature-desc">Get predictions in seconds with real-time processing</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Data-Driven</h3>
+                    <p class="feature-desc">Predictions based on multiple application factors</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">
+                    <span class="footer-brand">VisaPredict<span class="footer-ai">AI</span></span>
+                    — Advanced Machine Learning Project
+                </p>
+                <p class="footer-made-by">
+                    Made with <span class="heart">❤️</span> by <strong>Aman</strong>
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" title="X (Twitter)" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" title="YouTube" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" title="GitHub" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                        </svg>
+                    </a>
+                </div>
+                <p class="footer-disclaimer">
+                    ⚠️ This is a demonstration project for educational purposes. Results are predictions only and should
+                    not be used for actual visa applications.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', path='/js/main.js')}}"></script>
+</body>
+
+</html>
